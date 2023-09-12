@@ -15,7 +15,7 @@ import json
 # Parse configuration from 'config.toml'
 try:
     listenerType = config["listener"]["type"]
-    listenerIp = config["listener"]["ip"]
+    listenerIp = "0.0.0.0"
     listenerPort = config["listener"]["port"]
     registerPath = config["listener"]["registerPath"]
     taskPath = config["listener"]["taskPath"]
