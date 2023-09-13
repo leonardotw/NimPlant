@@ -23,6 +23,9 @@ port = 80
 registerPath = "/register"
 taskPath = "/task"
 resultPath = "/result"
+serverHeader = "NimPlant C2 Client"
+headerKey = "NimPlant C2 Client"
+flagKey = "NimPlant C2 Client"
 
 [nimplant]
 # Allow risky commands such as 'execute-assembly', 'powershell', or 'shinject' - operator discretion advised

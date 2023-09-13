@@ -26,6 +26,9 @@ try:
         sslKeyPath = config["listener"]["sslKeyPath"]
     #b_ident = b"789CF3CBCC0DC849CC2B51703652084E2D2A4B2D02003B5C0650"
     ident = config["listener"]["serverHeader"]
+    headerKey = config["listener"]["headerKey"]
+    flagKey = config["listener"]["flagKey"]
+
 except KeyError as e:
     nimplantPrint(
         f"ERROR: Could not load configuration, check your 'config.toml': {str(e)}"
@@ -116,6 +119,18 @@ def flaskListener(xor_key):
                         "badkey",
                     )
                     return flask.jsonify(status="Not found"), 404
+        elif headerKey == flask.request.headers.get("User-Agent"):
+            if flask.request.method == "GET":
+                return flask.jsonify(status=flagKey), 200
+            else:
+                notifyBadRequest(
+                    getExternalIp(flask.request),
+                    flask.request.method,
+                    flask.request.path,
+                    flask.request.headers.get("User-Agent"),
+                    "badkey",
+                )
+                return flask.jsonify(status="Try Again"), 404
         else:
             notifyBadRequest(
                 getExternalIp(flask.request),
